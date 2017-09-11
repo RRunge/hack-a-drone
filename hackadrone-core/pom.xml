@@ -46,6 +46,13 @@
             <groupId>nl.ordina.jtech</groupId>
             <artifactId>hackadrone-utils</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.opencv</groupId>
+            <artifactId>opencv</artifactId>
+            <version>3.3.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/lib/opencv-330.jar</systemPath>
+        </dependency>
     </dependencies>
 
 </project>

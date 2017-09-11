@@ -16,6 +16,8 @@
 
 package nl.ordina.jtech.hackadrone.gui;
 
+import org.opencv.core.Core;
+
 /**
  * Class representing a Graphical User Interface (GUI).
  *
@@ -31,6 +33,7 @@ public final class GUI {
      * @param args the arguments given from the command-line
      */
     public static void main(String[] args) {
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         new MainWindow();
     }
 
