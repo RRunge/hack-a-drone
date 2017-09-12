@@ -16,6 +16,7 @@
 
 package nl.ordina.jtech.hackadrone.io;
 
+import nl.ordina.jtech.hackadrone.gui.Frame;
 import nl.ordina.jtech.hackadrone.net.Decoder;
 import nl.ordina.jtech.hackadrone.net.DroneDecoder;
 import nl.ordina.jtech.hackadrone.utils.OS;
@@ -38,7 +39,7 @@ public final class Camera implements Handler {
     /**
      * The video resource path.
      */
-    private static final String VIDEO_PATH = System.getProperty("user.dir") + "/hackadrone-persistence/target/classes/video";
+    private static final String VIDEO_PATH = "C:\\Users\\rho22213\\IdeaProjects\\hack-a-drone\\hackadrone-persistence\\src\\main\\resources\\video";
 
     /**
      * The host of the drone.
@@ -151,7 +152,13 @@ public final class Camera implements Handler {
 
         switch (OS.getOS()) {
             case "win":
-                videoPlayer = new ProcessBuilder("cmd", "/c", "start", VIDEO_PATH + "/win/ffplay.exe", "-probesize", "64", "-sync", "ext", output).start();
+                videoPlayer = new ProcessBuilder("cmd", "/k", "start", "cmd", "/k", VIDEO_PATH + "/win/ffmpeg.exe",
+                        "-i",
+                        output,
+                        "-vf",
+                        "fps=3",
+                        "frames/frame-%03d.jpg"
+                ).start();
                 break;
             case "unix":
                 videoPlayer = new ProcessBuilder(VIDEO_PATH + "/unix/ffplay", "-fflags", "nobuffer", output).start();
@@ -160,6 +167,12 @@ public final class Camera implements Handler {
                 videoPlayer = new ProcessBuilder(VIDEO_PATH + "/osx/ffplay", "-fflags", "nobuffer", output).start();
                 break;
         }
+
+        final Thread thread = new Thread(() -> {
+            FrameWatcher fw = new FrameWatcher();
+        });
+
+        thread.start();
     }
 
     /**
@@ -191,7 +204,7 @@ public final class Camera implements Handler {
                         break;
                     }
                 } catch (IOException e) {
-                    System.err.println("Unable to read video output stream");
+                    System.err.println("Unable to read video output stream: " + e.getMessage());
                 }
             } while (data != null);
 
