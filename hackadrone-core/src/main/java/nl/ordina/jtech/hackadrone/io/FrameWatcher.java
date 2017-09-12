@@ -8,8 +8,10 @@ import java.nio.file.*;
 class FrameWatcher {
     private JLabel label;
     private String latestFrame;
+    private ComputerVision cv;
 
     FrameWatcher() {
+        cv = new ComputerVision();
         JFrame frame = new JFrame("Frame Watcher");
         frame.setSize(720,576);
         label = new JLabel();
@@ -35,7 +37,10 @@ class FrameWatcher {
                             previousFrame.delete();
                         }
                         latestFrame = "frames/" + changed.toString();
-                        updateFrame();
+                        File f = new File(latestFrame);
+                        if (f.exists()) {
+                            updateFrame();
+                        }
                     }
                 }
                 // reset the key
@@ -50,6 +55,6 @@ class FrameWatcher {
     }
 
     private void updateFrame() {
-        label.setIcon(new ImageIcon(latestFrame));
+        label.setIcon(new ImageIcon(cv.DetectFaces(latestFrame)));
     }
 }
