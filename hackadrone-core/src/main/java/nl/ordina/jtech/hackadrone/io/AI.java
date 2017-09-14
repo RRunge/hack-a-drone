@@ -61,7 +61,25 @@ public final class AI implements Device {
      * @see AI#land() for a more detailed explanation about using the land command
      * @see AI#chill(int) for a more detailed explanation about using the chill command
      */
+
+    // Pre-determined route around Ordina internal building.
     @Override
+    public void start(){
+        //take off
+        takeOff();
+
+        //Move forward.
+        pitch(100, 1000);
+
+        // Turn around 180 degree
+        yaw(110, 1000);
+
+        //Move forward.
+        pitch(100, 900);
+
+        land();
+    }
+     /**
     public void start() {
         // Take off
         chill(250);
@@ -91,6 +109,7 @@ public final class AI implements Device {
         chill(250);
         land();
     }
+    */
 
     /**
      * Random path AI.
@@ -122,6 +141,7 @@ public final class AI implements Device {
         AI.y += yDirection;
     }
      */
+
     /**
      * Stops the AI.
      *
