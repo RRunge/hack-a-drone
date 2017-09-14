@@ -93,6 +93,36 @@ public final class AI implements Device {
     }
 
     /**
+     * Random path AI.
+     *
+     * This command the drone will choose a random flight path.
+     * Test code!
+
+    int xDirection;
+    int yDirection;
+    //Choose random direction.
+    public int chooseRandomDirection(){
+        Random r = new Random();
+        int[] randDirections = new int[3];
+        randDirections[0] = 0;
+        randDirections[1] = 1;
+        randDirections[2] = -1;
+        int randChoice = r.nextInt(3);
+        return randDirections[randChoice];
+    }
+    //Moving in that direction.
+    public void setXDirection(int dir){
+        xDirection = dir;
+    }
+    public void setYDirection(int dir){
+        yDirection = dir;
+    }
+    public void move(){
+        AI.x += xDirection;
+        AI.y += yDirection;
+    }
+     */
+    /**
      * Stops the AI.
      *
      * The command listener will be set to null.
