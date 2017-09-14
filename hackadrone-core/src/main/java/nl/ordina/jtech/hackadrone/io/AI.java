@@ -69,14 +69,27 @@ public final class AI implements Device {
         takeOff();
 
         //Move forward.
+        chill(200);
         pitch(100, 1000);
 
+        // Brake
+        chill(250);
+        pitch(-100, 500);
+
         // Turn around 180 degree
+        chill(1000);
         yaw(110, 1000);
 
         //Move forward.
-        pitch(100, 900);
+        chill(500);
+        pitch(100, 1500);
 
+        // Brake
+        chill(250);
+        pitch(-100, 500);
+
+        //landing.
+        chill(500);
         land();
     }
      /**
